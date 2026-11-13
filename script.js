@@ -1,29 +1,40 @@
-/* Original vector placeholders for the upcoming Meowslim PNG assets. */
-const skinColors={fair:"#F3C7A8",medium:"#C98E68",deep:"#84543F"};
-function avatarSVG(gender,style,tone,color){
- const skin=skinColors[tone]||skinColors.fair;
- const cloth=/^#[0-9a-f]{6}$/i.test(color||"")?color:"#28694f";
- const eyes='<path d="M83 123q7-6 13 0M123 123q7-6 13 0" fill="none" stroke="#322D2D" stroke-linecap="round" stroke-width="3.5"/>';
- const smile='<path d="M103 149q9 9 18 0" fill="none" stroke="#935B54" stroke-width="3" stroke-linecap="round"/>';
- const body='<path d="M25 220q5-59 85-59 80 0 85 59" fill="#F9EEE0"/>';
- let art='';
- if(style==="hijab"||style==="khimar"){
-  art='<path d="M47 109Q44 27 110 25q67 2 64 84l-9 59q18 25 30 52H25q14-33 31-52z" fill="'+cloth+'"/><ellipse cx="110" cy="112" rx="42" ry="55" fill="'+skin+'"/><path d="M63 111Q61 42 112 41q34 2 47 44Q120 69 93 82Q75 92 63 111z" fill="'+cloth+'"/>'+eyes+smile+'<path d="M61 147q12 33 49 35 37-2 49-35l17 29-16 44H60l-16-44z" fill="'+cloth+'"/><path d="M80 175q30 18 60 0" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="3"/>';
-  if(style==="khimar")art+='<path d="M52 163q58 35 116 0l30 57H22z" fill="'+cloth+'"/><path d="M64 179q46 26 92 0" stroke="#fff" stroke-opacity=".23" stroke-width="4" fill="none"/>';
- }else if(style==="niqab"||style==="burqa"){
-  art='<path d="M46 95Q44 24 110 26q68 1 65 69l20 125H25z" fill="'+cloth+'"/>';
-  if(style==="niqab")art+='<path d="M64 110q46-15 92 0v24q-46 12-92 0z" fill="'+skin+'"/>'+eyes+'<path d="M56 136q54 12 108 0l9 84H47z" fill="'+cloth+'"/><path d="M73 146q38 10 75 0" fill="none" stroke="#fff" stroke-opacity=".27" stroke-width="2"/>';
-  else art+='<rect x="65" y="107" width="90" height="31" rx="4" fill="#233b31" fill-opacity=".22"/><path d="M65 115h90M65 123h90M65 131h90M81 107v31M97 107v31M113 107v31M129 107v31M145 107v31" stroke="#fff" stroke-opacity=".5" stroke-width="1.3"/>';
- }else{
-  art='<ellipse cx="110" cy="115" rx="49" ry="58" fill="'+skin+'"/>'+eyes+smile+'<path d="M74 137q5 42 36 51 35-9 37-51-8 17-20 19-17 16-36 0-11-2-17-19z" fill="#40302C"/>';
-  if(style==="turban")art+='<path d="M59 90q-8-48 48-57 63-5 67 51-52-17-115 6z" fill="'+cloth+'"/><path d="M60 74q56-33 111 0M63 85q53-24 106-5M86 43q-6 16 12 36" fill="none" stroke="#fff" stroke-opacity=".43" stroke-width="8" stroke-linecap="round"/>';
-  else art+='<path d="M59 92Q59 46 110 46q52 0 52 46-53-12-103 0z" fill="'+cloth+'"/><path d="M65 85q45-10 90 0" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="3"/>';
- }
- return '<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrative '+style+' avatar placeholder" viewBox="0 0 220 220">'+body+art+'</svg>';
+/* Meowslim landing-page illustrations: independent placeholders for the full avatar engine. */
+const tones=['#F3C7A8','#C98E68','#84543F','#D8A17C','#F1D3B8','#694638'];
+const fabrics=['#0E6B56','#7955A0','#C98165','#D4A855','#426B88','#546A53','#AC6A88','#315C4B','#B78A63'];
+const styles=['hijab','kufi','niqab','turban','khimar','kufi','burqa','tagelmust','hijab'];
+const seedNames=['Amina','Yusuf','Hafsa','Ibrahim','Maryam','Bilal','Zainab','Idris','Fatima'];
+function hash(str){let h=2166136261;for(let i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),16777619)}return h>>>0}
+function pick(arr,n){return arr[n%arr.length]}
+function avatarSVG({style='hijab',skin='#F3C7A8',cloth='#0E6B56',variant=0}){
+const face='<ellipse cx="110" cy="114" rx="47" ry="59" fill="'+skin+'"/>';
+const eyes=variant%4===0?'<path d="M81 120q7-7 14 0M125 120q7-7 14 0" stroke="#2B302C" stroke-width="3" fill="none" stroke-linecap="round"/>':'<ellipse cx="88" cy="122" rx="3.4" ry="4.2" fill="#2B302C"/><ellipse cx="131" cy="122" rx="3.4" ry="4.2" fill="#2B302C"/>';
+const smile=variant%3===0?'<path d="M102 151q9 10 19 0" fill="none" stroke="#945B51" stroke-width="3" stroke-linecap="round"/>':'<path d="M104 150q7 5 14 0" fill="none" stroke="#945B51" stroke-width="2.7" stroke-linecap="round"/>';
+const body='<path d="M23 220q7-60 87-60t87 60" fill="'+(variant%2?'#F8E9D8':'#F8F0E7')+'"/><path d="M65 182q45 23 91 0" stroke="#E4D3C6" stroke-width="3" fill="none"/>';
+let parts='';
+if(style==='hijab'||style==='khimar'){
+ parts='<path d="M47 110Q44 26 110 26q69 0 66 84l-10 57q17 21 30 53H24q13-37 31-53z" fill="'+cloth+'"/>'+face+'<path d="M62 106Q61 40 112 40q34 2 47 45-31-17-62-4-24 10-35 25" fill="'+cloth+'"/>'+eyes+smile+'<path d="M61 145q12 35 49 36 36-1 49-36l18 29-17 46H60l-17-46z" fill="'+cloth+'"/><path d="M80 179q29 15 60 0" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="3"/>';
+ if(style==='khimar')parts+='<path d="M52 162q59 38 116 0l30 58H22z" fill="'+cloth+'"/><path d="M65 181q45 25 90 0" stroke="#fff" stroke-opacity=".2" stroke-width="3" fill="none"/>';
+}else if(style==='niqab'||style==='burqa'||style==='tagelmust'){
+ parts='<path d="M44 100Q42 23 110 25q68 0 68 75l20 120H22z" fill="'+cloth+'"/>';
+ if(style==='burqa')parts+='<rect x="64" y="107" width="92" height="33" rx="4" fill="#132821" fill-opacity=".22"/><path d="M65 116h90M65 124h90M65 132h90M79 107v33M95 107v33M111 107v33M127 107v33M143 107v33" stroke="#fff" stroke-opacity=".54" stroke-width="1.6"/>';
+ else parts+='<path d="M62 110q47-17 96 0v23q-49 12-96 0z" fill="'+skin+'"/>'+eyes+'<path d="M56 138q52 14 108 0l11 82H45z" fill="'+cloth+'"/><path d="M70 148q41 9 82 0" stroke="#fff" stroke-opacity=".25" stroke-width="3" fill="none"/>';
+}else{
+ parts=face+eyes+smile+'<path d="M73 139q5 42 37 49 35-9 38-49-12 23-25 18-15 13-30 0-12 4-20-18z" fill="'+(variant%2?'#4B3029':'#2D3030')+'"/>';
+ if(style==='turban')parts+='<path d="M57 93Q53 38 111 33q62-2 64 50-54-17-118 10z" fill="'+cloth+'"/><path d="M59 76q61-34 112 0M63 88q52-23 105-5M81 46q-7 15 14 33" fill="none" stroke="#fff" stroke-opacity=".42" stroke-width="8" stroke-linecap="round"/>';
+ else parts+='<path d="M59 92Q59 46 110 46q53 0 52 46-53-12-103 0z" fill="'+cloth+'"/><path d="M65 84q47-11 91 0" stroke="#fff" stroke-opacity=".45" stroke-width="3" fill="none"/>';
 }
-document.querySelectorAll("[data-gender]").forEach(el=>{el.innerHTML=avatarSVG(el.dataset.gender,el.dataset.style,el.dataset.tone,el.dataset.color)});
-const toggle=document.querySelector(".menu-button");
-const nav=document.getElementById("nav");
-toggle?.addEventListener("click",()=>{const open=nav.classList.toggle("open");toggle.setAttribute("aria-expanded",String(open))});
-nav?.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>{nav.classList.remove("open");toggle?.setAttribute("aria-expanded","false")}));
-const year=document.getElementById("year");if(year)year.textContent=String(new Date().getFullYear());
+return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="'+style+' avatar illustration">'+body+parts+'</svg>';
+}
+function itemFor(name,i){const n=hash(name+'|'+i);return {style:styles[i%styles.length],skin:pick(tones,n>>>3),cloth:pick(fabrics,n>>>9),variant:n>>>17}}
+function drawMosaic(seed){document.querySelectorAll('[data-position]').forEach((el)=>{const i=Number(el.dataset.position);const name=i===4?seed:seedNames[i];const item=itemFor(name,i);el.innerHTML=(i===4?'<span class="you-tag">You</span>':'')+avatarSVG(item);el.style.background=['#E3F0E9','#F3E8D7','#EDE4F4','#F2E3DB','#DCEFE7','#E7ECF3','#E5EED9','#F5E3CE','#EBE8F2'][i]})}
+const presets={hijab:{style:'hijab',skin:'#D69A74',cloth:'#9272AA',variant:4},niqab:{style:'niqab',skin:'#84543F',cloth:'#305D51',variant:2},turban:{style:'turban',skin:'#C98E68',cloth:'#C98165',variant:1},kufi:{style:'kufi',skin:'#84543F',cloth:'#426B88',variant:5},khimar:{style:'khimar',skin:'#84543F',cloth:'#CE9A5E',variant:0}};
+document.querySelectorAll('[data-character]').forEach((el)=>{const p=presets[el.dataset.character];if(p)el.innerHTML=avatarSVG(p)});
+const field=document.getElementById('seed');const form=document.getElementById('seed-form');
+form?.addEventListener('submit',e=>{e.preventDefault();drawMosaic(field.value.trim()||'Meowslim')});
+document.getElementById('shuffle')?.addEventListener('click',()=>{const val='Avatar-'+Math.random().toString(36).slice(2,8);field.value=val;drawMosaic(val)});
+let timer;field?.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(()=>drawMosaic(field.value.trim()||'Meowslim'),220)});
+drawMosaic(field?.value||'Amina');
+const toggle=document.querySelector('.mobile-toggle');const nav=document.getElementById('main-nav');
+toggle?.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
+nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle?.setAttribute('aria-expanded','false')}));
+const year=document.getElementById('year');if(year)year.textContent=String(new Date().getFullYear());
