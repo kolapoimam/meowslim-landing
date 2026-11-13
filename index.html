@@ -1,67 +1,591 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#F4F8F6">
-<meta name="description" content="Meowslim is a thoughtful Muslim avatar generator. Discover expressive characters with hijabs, niqabs, khimars, burqas, kufis and turbans.">
-<meta property="og:type" content="website"><meta property="og:title" content="Meowslim — Modest Muslim avatars for a digital world.">
-<meta property="og:description" content="Create a character that feels like you. A playful, culturally thoughtful Muslim avatar studio.">
-<title>Meowslim — Modest Muslim avatars for a digital world</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css"><script src="/script.js" defer></script>
-</head><body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="header"><div class="container nav-inner">
-<a href="#top" class="brand" aria-label="Meowslim home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36" width="38" height="38"><path d="M5 31V12L10.5 3.5L16 10H20L25.5 3.5L31 12V31Q31 34 28 34H8Q5 34 5 31Z" fill="#0E6B56"/><circle cx="18" cy="21.5" r="7" fill="#F4F8F6"/><circle cx="21" cy="19.5" r="6" fill="#0E6B56"/></svg></span>Meowslim</a>
-<button class="mobile-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
-<nav class="nav-links" id="main-nav" aria-label="Main navigation"><a href="#about">About</a><a href="#features">Features</a><a href="#how">How it works</a><a href="#values">Our values</a></nav>
-<a class="button button-primary header-action" href="#follow">Follow the project <span aria-hidden="true">↗</span></a>
-</div></header>
-<main id="main">
-<section class="hero container" id="top" aria-labelledby="hero-title">
-<div class="hero-copy">
-<span class="pill"><span class="status-dot"></span> A more thoughtful avatar maker</span>
-<h1 id="hero-title">Modest Muslim avatars for a <em>digital world.</em></h1>
-<p class="hero-lead">Express yourself with playful, customisable profile images featuring hijabs, khimars, niqabs, burqas, kufis, turbans and more.</p>
-<div class="hero-actions"><a class="button button-primary button-large" href="#preview">Try the preview <span aria-hidden="true">↗</span></a><a class="button button-outline button-large" href="#about">Discover Meowslim</a></div>
-<div class="hero-fine"><span class="tiny-avatars" aria-hidden="true">● ● ●</span> Made for the many faces of our community.</div>
+<meta name="description" content="Meowslim: modest Muslim avatars for a digital world. Customize hijabs, niqabs, khimars, burqas, kufis, and turbans.">
+<title>Meowslim: modest Muslim avatars</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F8F6}
+a{color:#0E6B56}a:hover{color:#0B4A3C}
+.mw *{box-sizing:border-box}
+.mw :focus-visible{outline:3px solid #0E6B56;outline-offset:3px}
+.mw-btn{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}
+.mw-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(14,107,86,.22)}
+.mw-btn:active{transform:translateY(0)}
+.mw-btn:disabled{cursor:not-allowed;transform:none;box-shadow:none}
+.mw-card{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease}
+.mw-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(18,48,42,.13)}
+.mw-in{opacity:0;animation:mw-rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes mw-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.popA{animation:mw-popA .65s cubic-bezier(.34,1.56,.64,1) both}
+.popB{animation:mw-popB .65s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes mw-popA{from{opacity:0;transform:scale(.7) rotate(-4deg)}to{opacity:1;transform:none}}
+@keyframes mw-popB{from{opacity:0;transform:scale(.7) rotate(4deg)}to{opacity:1;transform:none}}
+.swapA{animation:mw-swapA .5s cubic-bezier(.2,.7,.2,1) both}
+.swapB{animation:mw-swapB .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes mw-swapA{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes mw-swapB{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.mw-bob{animation:mw-bob 6s ease-in-out infinite}
+@keyframes mw-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.mw-eyes{transform-box:fill-box;transform-origin:center;animation:mw-blink 5.5s infinite}
+@keyframes mw-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.mw-spin{animation:mw-spin 140s linear infinite}
+@keyframes mw-spin{to{transform:rotate(360deg)}}
+.mw-marquee{animation:mw-marquee 60s linear infinite}
+.mw-marquee:hover{animation-play-state:paused}
+@keyframes mw-marquee{to{transform:translateX(-50%)}}
+.mw-pulse{animation:mw-pulse 2.4s ease-in-out infinite}
+@keyframes mw-pulse{0%,100%{box-shadow:0 0 0 0 rgba(14,107,86,.45)}50%{box-shadow:0 0 0 7px rgba(14,107,86,0)}}
+@supports (animation-timeline: view()){.mw-reveal{animation:mw-rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}}
+@media (max-width:760px){.mw-navlinks{display:none !important}}
+@media (prefers-reduced-motion:reduce){.mw *{animation:none !important;transition:none !important}.mw .mw-in{opacity:1}}
+</style>
+</helmet>
+<div class="mw" id="top" style="font-family: Figtree, 'Segoe UI', system-ui, sans-serif; color: #12302A; background: #F4F8F6; font-size: 1rem; line-height: 1.6">
+
+<header style="position: sticky; top: 0; z-index: 30; background: rgba(244,248,246,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid #E1EBE6">
+<nav aria-label="Main" style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" aria-label="Meowslim home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #12302A">
+<svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><path d="M5 31V12L10.5 3.5L16 10H20L25.5 3.5L31 12V31Q31 34 28 34H8Q5 34 5 31Z" fill="#0E6B56"></path><circle cx="18" cy="21.5" r="7" fill="#F4F8F6"></circle><circle cx="21" cy="19.5" r="6" fill="#0E6B56"></circle></svg>
+<span style="font-family: Outfit, sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -0.02em">Meowslim</span>
+</a>
+<div class="mw-navlinks" style="display: flex; gap: 32px; font-weight: 500">
+<a href="#features" style="text-decoration: none; color: #33504A">Features</a>
+<a href="#how" style="text-decoration: none; color: #33504A">How it works</a>
+<a href="#values" style="text-decoration: none; color: #33504A">Our values</a>
 </div>
-<div class="hero-visual" id="preview"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-<div class="avatar-mosaic" aria-label="Nine illustrations of Muslim avatar styles">
-<div class="avatar-cell" data-position="0"></div><div class="avatar-cell" data-position="1"></div><div class="avatar-cell" data-position="2"></div>
-<div class="avatar-cell" data-position="3"></div><div class="avatar-cell hero-you" data-position="4"><span class="you-tag">You</span></div><div class="avatar-cell" data-position="5"></div>
-<div class="avatar-cell" data-position="6"></div><div class="avatar-cell" data-position="7"></div><div class="avatar-cell" data-position="8"></div>
+<a href="#waitlist" class="mw-btn" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: #0E6B56; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 0.95rem">Join the waitlist</a>
+</nav>
+</header>
+
+<section aria-labelledby="hero-title" style="max-width: 1200px; margin: 0 auto; padding: 64px 24px 104px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 64px; align-items: center">
+<div>
+<p class="mw-in" style="animation-delay: 0.05s; display: inline-flex; align-items: center; gap: 10px; margin: 0 0 24px; padding: 6px 16px 6px 10px; border-radius: 999px; background: #DCEFE7; color: #0B4A3C; font-weight: 600; font-size: 0.9rem"><span class="mw-pulse" style="width: 9px; height: 9px; border-radius: 50%; background: #0E6B56"></span>Coming soon</p>
+<h1 id="hero-title" class="mw-in" style="animation-delay: 0.12s; margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: clamp(2.7rem, 5.6vw, 4.6rem); line-height: 1.02; letter-spacing: -0.03em; color: #12302A; max-width: 12ch">Modest Muslim avatars for a digital world.</h1>
+<p class="mw-in" style="animation-delay: 0.2s; margin: 24px 0 0; font-size: 1.2rem; line-height: 1.6; color: #4A5F59; max-width: 34em">Meowslim is an Islamic avatar generator that lets you create halal, customisable profile images with hijabs, kufis, turbans and more.</p>
+<div class="mw-in" style="animation-delay: 0.28s; margin-top: 36px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
+<a href="#waitlist" class="mw-btn" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 30px; border-radius: 999px; background: #0E6B56; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 1.05rem">Join the waitlist</a>
+<a href="#values" class="mw-btn" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: 999px; border: 1.5px solid #B9CEC6; background: transparent; color: #12302A; text-decoration: none; font-weight: 600; font-size: 1.05rem">Follow the journey</a>
 </div>
-<form class="seed-form" id="seed-form"><label for="seed">Type any name to explore an avatar</label><div class="seed-controls"><input id="seed" name="seed" value="Amina" maxlength="60" autocomplete="off" spellcheck="false" aria-describedby="seed-note"><button class="button button-primary" type="submit">Generate <span aria-hidden="true">↗</span></button><button class="shuffle-button" type="button" id="shuffle" aria-label="Generate a random avatar" title="Shuffle avatar">⤨</button></div><p class="seed-note" id="seed-note">A consistent seed creates a consistent preview. Full customization is in development.</p></form>
+</div>
+
+<div class="mw-in" style="animation-delay: 0.18s; position: relative">
+<svg class="mw-spin" viewBox="-210 -210 420 420" aria-hidden="true" style="position: absolute; left: 50%; top: 46%; width: 118%; max-width: 620px; margin-left: -59%; translate: 0 -50%; pointer-events: none"><polygon points="200,0 141.4,58.6 141.4,141.4 58.6,141.4 0,200 -58.6,141.4 -141.4,141.4 -141.4,58.6 -200,0 -141.4,-58.6 -141.4,-141.4 -58.6,-141.4 0,-200 58.6,-141.4 141.4,-141.4 141.4,-58.6" fill="#E3EFE9" stroke="#C2DBD1" stroke-width="2"></polygon><circle r="118" fill="none" stroke="#C2DBD1" stroke-width="2" stroke-dasharray="4 8"></circle></svg>
+<div style="position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; max-width: 470px; margin: 0 auto; padding-bottom: 28px">
+<sc-for list="{{tiles}}" as="t" hint-placeholder-count="9">
+<div style="transform: {{t.shift}}">
+<div class="mw-bob" style="animation-duration: {{t.dur}}; animation-delay: {{t.bobDelay}}">
+<div class="{{t.cls}}" style="animation-delay: {{t.popDelay}}; position: relative; aspect-ratio: 1 / 1; border-radius: 28px; overflow: hidden; background: #FFFFFF; box-shadow: {{t.ring}}">
+<dc-import name="Avatar" av="{{t.av}}" hint-size="100%,100%"></dc-import>
+<sc-if value="{{t.isYou}}" hint-placeholder-val="{{false}}">
+<span style="position: absolute; left: 10px; bottom: 10px; padding: 2px 10px; border-radius: 999px; background: #0E6B56; color: #FFFFFF; font-size: 0.78rem; font-weight: 700">You</span>
+</sc-if>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="position: relative; max-width: 470px; margin: 12px auto 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end">
+<label for="mw-seed" style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 6px; font-size: 0.92rem; font-weight: 600; color: #33504A">Type any name to draw your avatar
+<input id="mw-seed" type="text" value="{{seed}}" onChange="{{onSeed}}" autocomplete="off" spellcheck="false" style="height: 50px; padding: 0 16px; border-radius: 14px; border: 1.5px solid #B9CEC6; background: #FFFFFF; font: inherit; font-size: 1rem; font-weight: 500; color: #12302A">
+</label>
+<button type="button" onClick="{{shuffle}}" class="mw-btn" style="height: 50px; padding: 0 18px; border-radius: 14px; border: 1.5px solid #B9CEC6; background: #FFFFFF; font: inherit; font-weight: 600; color: #12302A; cursor: pointer; display: inline-flex; gap: 8px; align-items: center">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h3c4 0 6 10 10 10h5M3 17h3c1.6 0 2.8-1.6 4-3.5M14 9.5C15.2 7.6 16.4 7 18 7h3M18 4l3 3-3 3M18 14l3 3-3 3"></path></svg>
+Shuffle</button>
+</div>
 </div>
 </section>
-<div class="proof-strip"><div class="container proof-inner"><span>Made with intention</span><b>✳</b><span>Many styles, one community</span><b>✳</b><span>Seed-powered characters</span><b>✳</b><span>Made to be yours</span></div></div>
-<section class="section section-white" id="about"><div class="container about-grid">
-<div class="section-copy"><span class="section-index">01 / INTRODUCING MEOWSLIM</span><h2>See yourself in the <em>little details.</em></h2><p>Meowslim is an avatar maker built around representation and modesty. Start with a name or choose a style, then bring together a character that feels familiar, expressive and recognisably you.</p><p>Like DiceBear, the underlying product uses a seed to create a repeatable avatar. Unlike a generic character collection, Meowslim puts Muslim dress and identity at the heart of its designs.</p><a class="inline-link" href="#features">Explore the collection <span aria-hidden="true">↗</span></a></div>
-<div class="feature-mini-grid">
-<article class="mini-card"><span class="mini-icon">✳</span><h3>Modest by design</h3><p>Hijabs, niqabs, khimars and more belong in the collection, not on the sidelines.</p></article>
-<article class="mini-card"><span class="mini-icon">◈</span><h3>Endlessly personal</h3><p>Skin tones, faces, head coverings, expressions and colours come together.</p></article>
-<article class="mini-card"><span class="mini-icon">⌘</span><h3>Developer friendly</h3><p>Stable seed-based generation, downloadable images and an avatar API.</p></article>
-<article class="mini-card"><span class="mini-icon">♡</span><h3>Community centred</h3><p>Designed to celebrate different traditions with dignity and care.</p></article>
-</div></div></section>
-<section class="section collection-section" id="features"><div class="container">
-<div class="section-heading"><span class="section-index">02 / THE COLLECTION</span><h2>Every piece, <em>drawn with care.</em></h2><p>A growing wardrobe of familiar styles and details. These are representative previews of what Meowslim supports.</p></div>
-<div class="style-grid">
-<article class="style-card"><div class="style-art art-lilac" data-character="hijab"></div><div class="style-text"><h3>Hijabs & khimars</h3><p>From simple wraps to longer drapes</p></div></article>
-<article class="style-card"><div class="style-art art-mint" data-character="niqab"></div><div class="style-text"><h3>Niqabs & burqas</h3><p>Thoughtful, modest silhouettes</p></div></article>
-<article class="style-card"><div class="style-art art-sand" data-character="turban"></div><div class="style-text"><h3>Turbans & headwraps</h3><p>Distinctive folds and shapes</p></div></article>
-<article class="style-card"><div class="style-art art-blue" data-character="kufi"></div><div class="style-text"><h3>Kufis & caps</h3><p>Traditional details, playful style</p></div></article>
-</div><p class="note">Plus facial expressions, outfits, beards, glasses, skin tones, backgrounds and more.</p>
-</div></section>
-<section class="section section-white audience-section"><div class="container audience-layout"><div class="section-copy"><span class="section-index">03 / MADE FOR EVERYONE</span><h2>One Ummah.<br><em>Many faces.</em></h2><p>Whether you're representing yourself or building something for your community, there should be room for you here.</p><div class="audience-image"><div data-character="khimar"></div><span class="floating-heart">♡</span></div></div>
-<div class="audience-list"><article><span>01</span><div><h3>Muslims online</h3><p>A profile picture that fits who you are, without needing to upload a personal photo.</p></div></article><article><span>02</span><div><h3>Founders & product teams</h3><p>Thoughtful placeholder characters for applications, communities and digital products.</p></div></article><article><span>03</span><div><h3>Schools, mosques & organisations</h3><p>Welcoming visuals for learning spaces, groups and community initiatives.</p></div></article><article><span>04</span><div><h3>Designers & creators</h3><p>Expressive characters for mockups, illustrations and everyday creative work.</p></div></article></div></div></section>
-<section class="section how-section" id="how"><div class="container"><div class="section-heading"><span class="section-index">04 / THE PROCESS</span><h2>Three steps to <em>your look.</em></h2><p>The full avatar studio is being refined. Here's the experience we're building.</p></div>
-<div class="steps"><article class="step-card"><span class="step-number">01</span><span class="step-symbol">◌</span><h3>Pick your style</h3><p>Start with a seed or a character. Choose your head covering, face shape and outfit.</p></article><article class="step-card"><span class="step-number">02</span><span class="step-symbol">✳</span><h3>Make it personal</h3><p>Mix colours, expressions, skin tones and small details until it feels like you.</p></article><article class="step-card"><span class="step-number">03</span><span class="step-symbol">↗</span><h3>Download or integrate</h3><p>Use your avatar as an image or generate consistent characters through an API.</p></article></div>
-<div class="process-note">The Meowslim avatar engine and editor are being developed in a separate product repository. <a href="https://github.com/kolapoimam/meowslim-avatars" target="_blank" rel="noopener noreferrer">See the development progress ↗</a></div>
-</div></section>
-<section class="section follow-section" id="follow"><div class="container follow-panel"><div class="follow-copy"><span class="follow-kicker">THE JOURNEY IS JUST BEGINNING</span><h2>Help shape Meowslim <em>from day one.</em></h2><p>We're building a growing library of Muslim characters and styles. Follow along, share feedback and be part of what comes next.</p><div class="follow-points"><span>✓ Watch the avatar library grow</span><span>✓ Follow updates to the creator</span><span>✓ Suggest the next styles</span></div><a class="button button-white button-large" href="https://github.com/kolapoimam/meowslim-avatars" target="_blank" rel="noopener noreferrer">Follow the project on GitHub <span aria-hidden="true">↗</span></a><p class="follow-small">No email collected here. Updates are currently shared on GitHub.</p></div><div class="follow-art" aria-hidden="true"><div data-character="hijab"></div><div data-character="kufi"></div><span>✳</span></div></div></section>
-<section class="section section-white values-section" id="values"><div class="container"><div class="section-heading"><span class="section-index">05 / WHAT MATTERS</span><h2>Designed with <em>intention.</em></h2></div><div class="values-grid"><article><span>01 —</span><h3>Modesty, by default</h3><p>Recognisable, considered clothing is part of the starting point rather than an afterthought.</p></article><article><span>02 —</span><h3>Dignity, never caricature</h3><p>Characters should feel joyful and expressive without turning identity into a stereotype.</p></article><article><span>03 —</span><h3>One Ummah, many faces</h3><p>There is no single way to look Muslim. The library should reflect that beautiful breadth.</p></article></div></div></section>
-</main>
-<footer class="footer"><div class="container"><div class="footer-top"><div><a href="#top" class="footer-brand">✳ Meowslim</a><p>Modest Muslim avatars for a digital world.<br>Made for the many faces of our community.</p></div><nav aria-label="Footer navigation"><a href="#about">About</a><a href="#features">Collection</a><a href="#how">How it works</a><a href="https://github.com/kolapoimam/meowslim-avatars" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></div><div class="footer-bottom"><span>© <span id="year">2026</span> Meowslim. Made with care.</span><span>Thoughtful by design. Open to possibility.</span></div></div></footer>
-</body></html>
+
+<section id="about" aria-labelledby="about-title" style="background: #FFFFFF; border-top: 1px solid #E1EBE6; border-bottom: 1px solid #E1EBE6">
+<div style="max-width: 1200px; margin: 0 auto; padding: 104px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 64px; align-items: start">
+<div class="mw-reveal">
+<h2 id="about-title" style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em">What is Meowslim?</h2>
+<p style="margin: 20px 0 0; font-size: 1.125rem; color: #4A5F59; max-width: 36em">Meowslim is an avatar generator built around Islamic modesty. Pick a style, or simply give it a name, and it draws a friendly character dressed the way you would dress: covered, dignified and recognisably you.</p>
+<p style="margin: 16px 0 0; font-size: 1.125rem; color: #4A5F59; max-width: 36em">Like DiceBear, every avatar is generated in code from a seed, so the same name always returns the same face. That makes Meowslim as useful inside apps and products as it is on your own profile.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px">
+<div style="padding: 28px; border-radius: 24px; background: #F4F8F6">
+<span style="display: inline-flex; width: 48px; height: 48px; border-radius: 16px; background: #DCEFE7; color: #0E6B56; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="-210 -210 420 420" aria-hidden="true"><polygon points="200,0 141.4,58.6 141.4,141.4 58.6,141.4 0,200 -58.6,141.4 -141.4,141.4 -141.4,58.6 -200,0 -141.4,-58.6 -141.4,-141.4 -58.6,-141.4 0,-200 58.6,-141.4 141.4,-141.4 141.4,-58.6" fill="none" stroke="currentColor" stroke-width="30" stroke-linejoin="round"></polygon></svg></span>
+<h3 style="margin: 18px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.25rem">Modest by design</h3>
+<p style="margin: 0; color: #4A5F59">Every outfit and head covering follows Islamic dress codes. Nothing to filter out, nothing to second-guess.</p>
+</div>
+<div style="padding: 28px; border-radius: 24px; background: #F4F8F6">
+<span style="display: inline-flex; width: 48px; height: 48px; border-radius: 16px; background: #F7DFD6; color: #8A3A4C; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg></span>
+<h3 style="margin: 18px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.25rem">Highly customisable</h3>
+<p style="margin: 0; color: #4A5F59">Mix head coverings, beards, expressions and colours until it feels right.</p>
+</div>
+<div style="padding: 28px; border-radius: 24px; background: #F4F8F6">
+<span style="display: inline-flex; width: 48px; height: 48px; border-radius: 16px; background: #DCE8F3; color: #2D4C7E; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c-2 0-3 1-3 3v2c0 1.5-1 3-2 3 1 0 2 1.5 2 3v2c0 2 1 3 3 3M16 4c2 0 3 1 3 3v2c0 1.5 1 3 2 3-1 0-2 1.5-2 3v2c0 2-1 3-3 3"></path></svg></span>
+<h3 style="margin: 18px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.25rem">Developer-friendly</h3>
+<p style="margin: 0; color: #4A5F59">The same seed always draws the same avatar, and an API is planned so your app can give every user a default.</p>
+</div>
+<div style="padding: 28px; border-radius: 24px; background: #F4F8F6">
+<span style="display: inline-flex; width: 48px; height: 48px; border-radius: 16px; background: #F5EBC4; color: #6E5520; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M2.5 20c1-3.5 3.5-5.5 6.5-5.5s5.5 2 6.5 5.5M15 14.5c2.5 0 5 1.5 6 4.5"></path></svg></span>
+<h3 style="margin: 18px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.25rem">Community-centred</h3>
+<p style="margin: 0; color: #4A5F59">Built for Muslims, by Muslims, with the waitlist helping decide what ships first.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="features" aria-labelledby="features-title" style="padding: 104px 0 96px">
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between">
+<div class="mw-reveal" style="max-width: 640px">
+<h2 id="features-title" style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em">Every piece, drawn with care</h2>
+<p style="margin: 16px 0 0; font-size: 1.125rem; color: #4A5F59">Head coverings, faces and clothing are separate parts you can combine freely. Here is a first look at each set.</p>
+</div>
+<div role="tablist" aria-label="Avatar parts" style="display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E1EBE6">
+<sc-for list="{{tabs}}" as="tb" hint-placeholder-count="3">
+<button type="button" role="tab" aria-selected="{{tb.selStr}}" onClick="{{tb.pick}}" style="min-height: 44px; padding: 0 20px; border-radius: 999px; border: none; background: {{tb.bg}}; color: {{tb.fg}}; font: inherit; font-weight: 600; cursor: pointer; transition: background-color .25s ease, color .25s ease">{{tb.label}}</button>
+</sc-for>
+</div>
+</div>
+<div role="tabpanel" aria-label="{{tabLabel}}" style="max-width: 1248px; margin: 40px auto 0; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 24px 28px">
+<div style="display: flex; gap: 20px; width: max-content">
+<sc-for list="{{cards}}" as="c" hint-placeholder-count="5">
+<div class="{{c.cls}}" style="animation-delay: {{c.delay}}; scroll-snap-align: start">
+<article class="mw-card" style="width: 236px; padding: 12px 12px 22px; border-radius: 28px; background: #FFFFFF; border: 1px solid #E1EBE6">
+<div style="aspect-ratio: 1 / 1; border-radius: 20px; overflow: hidden">
+<dc-import name="Avatar" av="{{c.av}}" hint-size="100%,100%"></dc-import>
+</div>
+<h3 style="margin: 18px 10px 4px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.2rem">{{c.title}}</h3>
+<p style="margin: 0 10px; font-size: 0.95rem; line-height: 1.5; color: #4A5F59">{{c.text}}</p>
+</article>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="who-title" style="background: #FFFFFF; border-top: 1px solid #E1EBE6; border-bottom: 1px solid #E1EBE6; padding: 104px 0 88px; overflow: hidden">
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px">
+<div class="mw-reveal" style="max-width: 640px">
+<h2 id="who-title" style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em">Who is Meowslim for?</h2>
+<p style="margin: 16px 0 0; font-size: 1.125rem; color: #4A5F59">Anyone who wants an avatar that fits their faith, and everyone building for the ummah.</p>
+</div>
+<div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 40px 32px">
+<div>
+<span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: #DCEFE7; color: #0E6B56; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"></path></svg></span>
+<h3 style="margin: 16px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.2rem">Muslims online</h3>
+<p style="margin: 0; color: #4A5F59">Halal profile pictures for WhatsApp, X, Discord and wherever else you show up.</p>
+</div>
+<div>
+<span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: #DCE8F3; color: #2D4C7E; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"></path></svg></span>
+<h3 style="margin: 16px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.2rem">Founders and product teams</h3>
+<p style="margin: 0; color: #4A5F59">Culturally aligned default avatars for sign-ups, comments and team pages.</p>
+</div>
+<div>
+<span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: #F5EBC4; color: #6E5520; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M5.5 20v-7M18.5 20v-7M5.5 13c0-4 3.2-6 6.5-8 3.3 2 6.5 4 6.5 8M12 5V2.5M10 20v-4a2 2 0 0 1 4 0v4"></path></svg></span>
+<h3 style="margin: 16px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.2rem">Schools, mosques and organisations</h3>
+<p style="margin: 0; color: #4A5F59">Avatars in your colours for students, members and staff directories.</p>
+</div>
+<div>
+<span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: #F7DFD6; color: #8A3A4C; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8a2.1 2.1 0 0 0-3-3L5 16l-1 4zM14 7l3 3"></path></svg></span>
+<h3 style="margin: 16px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.2rem">Designers and creators</h3>
+<p style="margin: 0; color: #4A5F59">Ready-made characters for Muslim-focused illustrations, games and campaigns.</p>
+</div>
+</div>
+</div>
+<div aria-hidden="true" style="margin-top: 72px; overflow: hidden">
+<div class="mw-marquee" style="display: flex; gap: 16px; width: max-content">
+<sc-for list="{{ribbon}}" as="r" hint-placeholder-count="12">
+<div style="width: 96px; height: 96px; border-radius: 28px; overflow: hidden; flex: none">
+<dc-import name="Avatar" av="{{r}}" hint-size="96px,96px"></dc-import>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="how" aria-labelledby="how-title" style="max-width: 1200px; margin: 0 auto; padding: 104px 24px">
+<div class="mw-reveal" style="max-width: 680px">
+<h2 id="how-title" style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em">How it will work</h2>
+<p style="margin: 16px 0 0; font-size: 1.125rem; color: #4A5F59">Three steps from blank profile to your avatar. Try an early preview below; nothing you pick here is saved.</p>
+</div>
+<div style="margin-top: 48px; display: flex; flex-wrap: wrap-reverse; gap: 40px; align-items: flex-start">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+
+<div style="padding: 28px; border-radius: 28px; background: #FFFFFF; border: 1px solid #E1EBE6">
+<div style="display: flex; gap: 14px; align-items: center">
+<span style="flex: none; width: 36px; height: 36px; border-radius: 50%; background: #12302A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: Outfit, sans-serif; font-weight: 600">1</span>
+<h3 style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.3rem">Pick your style</h3>
+</div>
+<p style="margin: 10px 0 18px; color: #4A5F59">Choose a head covering or base character to start from.</p>
+<div role="group" aria-label="Style" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{heads}}" as="h" hint-placeholder-count="7">
+<button type="button" aria-pressed="{{h.pressed}}" onClick="{{h.pick}}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid {{h.bd}}; background: {{h.bg}}; color: {{h.fg}}; font: inherit; font-weight: 600; cursor: pointer; transition: background-color .2s ease, color .2s ease, border-color .2s ease">{{h.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="padding: 28px; border-radius: 28px; background: #FFFFFF; border: 1px solid #E1EBE6">
+<div style="display: flex; gap: 14px; align-items: center">
+<span style="flex: none; width: 36px; height: 36px; border-radius: 50%; background: #12302A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: Outfit, sans-serif; font-weight: 600">2</span>
+<h3 style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.3rem">Customise the details</h3>
+</div>
+<p style="margin: 10px 0 20px; color: #4A5F59">Adjust skin tone, beard, expression and colours.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 24px 32px">
+<div role="group" aria-label="Skin tone">
+<p style="margin: 0 0 10px; font-size: 0.92rem; font-weight: 600; color: #33504A">Skin tone</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{skins}}" as="k" hint-placeholder-count="6">
+<button type="button" aria-label="{{k.label}}" aria-pressed="{{k.pressed}}" onClick="{{k.pick}}" style="width: 44px; height: 44px; border-radius: 50%; border: 3px solid #FFFFFF; background: {{k.c}}; box-shadow: 0 0 0 2px {{k.ring}}; cursor: pointer"></button>
+</sc-for>
+</div>
+</div>
+<div role="group" aria-label="Expression">
+<p style="margin: 0 0 10px; font-size: 0.92rem; font-weight: 600; color: #33504A">Expression</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{mouths}}" as="m" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{m.pressed}}" onClick="{{m.pick}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{m.bd}}; background: {{m.bg}}; color: {{m.fg}}; font: inherit; font-weight: 600; cursor: pointer">{{m.label}}</button>
+</sc-for>
+</div>
+</div>
+<div role="group" aria-label="Beard">
+<p style="margin: 0 0 10px; font-size: 0.92rem; font-weight: 600; color: #33504A">Beard</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{beards}}" as="bd" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{bd.pressed}}" disabled="{{bd.disabled}}" onClick="{{bd.pick}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{bd.bd}}; background: {{bd.bg}}; color: {{bd.fg}}; opacity: {{bd.op}}; font: inherit; font-weight: 600; cursor: pointer">{{bd.label}}</button>
+</sc-for>
+</div>
+<p style="margin: 8px 0 0; font-size: 0.85rem; color: #4A5F59">{{beardNote}}</p>
+</div>
+<div role="group" aria-label="Background">
+<p style="margin: 0 0 10px; font-size: 0.92rem; font-weight: 600; color: #33504A">Background</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{bgs}}" as="g" hint-placeholder-count="6">
+<button type="button" aria-label="{{g.label}}" aria-pressed="{{g.pressed}}" onClick="{{g.pick}}" style="width: 44px; height: 44px; border-radius: 14px; border: 3px solid #FFFFFF; background: {{g.c}}; box-shadow: 0 0 0 2px {{g.ring}}; cursor: pointer"></button>
+</sc-for>
+</div>
+</div>
+<div role="group" aria-label="{{coverLabel}}" style="grid-column: 1 / -1">
+<p style="margin: 0 0 10px; font-size: 0.92rem; font-weight: 600; color: #33504A">{{coverLabel}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{covers}}" as="cv" hint-placeholder-count="8">
+<button type="button" aria-label="{{cv.label}}" aria-pressed="{{cv.pressed}}" onClick="{{cv.pick}}" style="width: 44px; height: 44px; border-radius: 50%; border: 3px solid #FFFFFF; background: {{cv.c}}; box-shadow: 0 0 0 2px {{cv.ring}}; cursor: pointer"></button>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+
+<div style="padding: 28px; border-radius: 28px; background: #FFFFFF; border: 1px solid #E1EBE6">
+<div style="display: flex; gap: 14px; align-items: center">
+<span style="flex: none; width: 36px; height: 36px; border-radius: 50%; background: #12302A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: Outfit, sans-serif; font-weight: 600">3</span>
+<h3 style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.3rem">Download or integrate</h3>
+</div>
+<p style="margin: 10px 0 18px; color: #4A5F59">Export a PNG or SVG for your profile, or request avatars by seed from the planned API.</p>
+<div style="overflow-x: auto; padding: 14px 18px; border-radius: 16px; background: #12302A; color: #DCEFE7; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.9rem; white-space: nowrap"><span style="color: #8FD3BE">GET</span> {{apiPath}}</div>
+</div>
+
+<div style="display: flex; gap: 14px; align-items: flex-start; padding: 20px 24px; border-radius: 20px; background: #F5EBC4; color: #4A3A12">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+<p style="margin: 0">Meowslim is still being built. <a href="#waitlist" style="color: #4A3A12; font-weight: 700">Join the waitlist</a> to vote on which styles, colours and features ship first.</p>
+</div>
+</div>
+
+<div style="flex: 1 1 320px; position: sticky; top: 96px; padding: 20px; border-radius: 32px; background: #FFFFFF; border: 1px solid #E1EBE6; box-shadow: 0 24px 60px rgba(18,48,42,.08)">
+<div class="{{builderCls}}" style="aspect-ratio: 1 / 1; border-radius: 24px; overflow: hidden">
+<dc-import name="Avatar" av="{{builderAv}}" hint-size="100%,100%"></dc-import>
+</div>
+<p style="margin: 16px 4px 0; font-size: 0.92rem; color: #4A5F59" aria-live="polite">Live preview: {{builderText}}</p>
+<div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px">
+<button type="button" onClick="{{randomise}}" class="mw-btn" style="flex: 1 1 140px; min-height: 48px; padding: 0 18px; border-radius: 999px; border: none; background: #0E6B56; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; justify-content: center">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h3c4 0 6 10 10 10h5M3 17h3c1.6 0 2.8-1.6 4-3.5M14 9.5C15.2 7.6 16.4 7 18 7h3M18 4l3 3-3 3M18 14l3 3-3 3"></path></svg>
+Randomise</button>
+<button type="button" disabled="{{true}}" class="mw-btn" style="flex: 1 1 140px; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #C9DAD3; background: #F4F8F6; color: #4A5F59; font: inherit; font-weight: 600">Download at launch</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="waitlist" aria-labelledby="waitlist-title" style="padding: 0 24px 104px">
+<div style="max-width: 1200px; margin: 0 auto; padding: clamp(32px, 6vw, 72px); border-radius: 40px; background: #0E6B56; color: #FFFFFF; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 48px; align-items: center; position: relative; overflow: hidden">
+<svg class="mw-spin" viewBox="-210 -210 420 420" aria-hidden="true" style="position: absolute; right: -140px; bottom: -160px; width: 440px; opacity: 0.12; pointer-events: none"><polygon points="200,0 141.4,58.6 141.4,141.4 58.6,141.4 0,200 -58.6,141.4 -141.4,141.4 -141.4,58.6 -200,0 -141.4,-58.6 -141.4,-141.4 -58.6,-141.4 0,-200 58.6,-141.4 141.4,-141.4 141.4,-58.6" fill="none" stroke="#FFFFFF" stroke-width="6"></polygon></svg>
+<div style="position: relative">
+<h2 id="waitlist-title" style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; letter-spacing: -0.02em">Help shape Meowslim from day one.</h2>
+<p style="margin: 18px 0 22px; font-size: 1.125rem; color: #DCEFE7">Leave your email and you will:</p>
+<div style="display: flex; flex-direction: column; gap: 12px; font-size: 1.05rem">
+<div style="display: flex; gap: 12px; align-items: center"><span style="flex: none; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.16); display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>Get early access before the public launch</div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="flex: none; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.16); display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>Vote on new styles and features</div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="flex: none; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.16); display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>Hear first when Meowslim launches</div>
+</div>
+</div>
+<div style="position: relative; padding: 32px; border-radius: 28px; background: #FFFFFF; color: #12302A">
+<sc-if value="{{notJoined}}" hint-placeholder-val="{{true}}">
+<label for="mw-email" style="display: block; font-weight: 700; font-size: 1rem; margin-bottom: 8px">Email address</label>
+<input id="mw-email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" value="{{email}}" onChange="{{onEmail}}" onKeyDown="{{onKey}}" aria-invalid="{{errStr}}" aria-describedby="mw-email-help" style="width: 100%; height: 56px; padding: 0 18px; border-radius: 16px; border: 1.5px solid {{emailBorder}}; background: #FFFFFF; font: inherit; font-size: 1.05rem; color: #12302A">
+<sc-if value="{{hasErr}}" hint-placeholder-val="{{false}}">
+<p role="alert" style="margin: 8px 0 0; font-size: 0.92rem; font-weight: 600; color: #A32E3B">{{err}}</p>
+</sc-if>
+<button type="button" onClick="{{join}}" class="mw-btn" style="margin-top: 14px; width: 100%; min-height: 56px; border-radius: 16px; border: none; background: #12302A; color: #FFFFFF; font: inherit; font-size: 1.05rem; font-weight: 700; cursor: pointer">Join the waitlist</button>
+<p id="mw-email-help" style="margin: 14px 0 0; font-size: 0.9rem; color: #4A5F59; display: flex; gap: 8px; align-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>No spam. You’ll only hear from us about Meowslim.</p>
+</sc-if>
+<sc-if value="{{joined}}" hint-placeholder-val="{{false}}">
+<div class="popA" role="status" style="text-align: center; padding: 8px 0">
+<div style="width: 112px; height: 112px; margin: 0 auto; border-radius: 32px; overflow: hidden"><dc-import name="Avatar" av="{{joinAv}}" hint-size="112px,112px"></dc-import></div>
+<h3 style="margin: 18px 0 6px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.5rem">You’re on the waitlist</h3>
+<p style="margin: 0; color: #4A5F59">We’ll write to {{email}} when early access opens. That’s your avatar, drawn from your email.</p>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+
+<section id="values" aria-labelledby="values-title" style="background: #FFFFFF; border-top: 1px solid #E1EBE6">
+<div style="max-width: 1200px; margin: 0 auto; padding: 104px 24px 96px">
+<div class="mw-reveal" style="max-width: 640px">
+<h2 id="values-title" style="margin: 0; font-family: Outfit, sans-serif; font-weight: 600; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em">What we stand for</h2>
+<p style="margin: 16px 0 0; font-size: 1.125rem; color: #4A5F59">Playful, but never at the expense of faith.</p>
+</div>
+<div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 40px">
+<div style="border-top: 2px solid #0E6B56; padding-top: 24px">
+<h3 style="margin: 0 0 8px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.35rem">Modesty, by default</h3>
+<p style="margin: 0; color: #4A5F59">Every style is designed around Islamic dress codes from the first sketch, never added as an afterthought.</p>
+</div>
+<div style="border-top: 2px solid #0E6B56; padding-top: 24px">
+<h3 style="margin: 0 0 8px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.35rem">Dignity, never caricature</h3>
+<p style="margin: 0; color: #4A5F59">Faith is not a punchline. Characters are warm and friendly without mocking dress, features or culture.</p>
+</div>
+<div style="border-top: 2px solid #0E6B56; padding-top: 24px">
+<h3 style="margin: 0 0 8px; font-family: Outfit, sans-serif; font-weight: 600; font-size: 1.35rem">One ummah, many faces</h3>
+<p style="margin: 0; color: #4A5F59">Skin tones, styles and traditions from across the Muslim world, so more people can see themselves.</p>
+</div>
+</div>
+<div style="margin-top: 56px; padding: 24px 28px; border-radius: 24px; background: #F4F8F6; display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between">
+<p style="margin: 0; font-size: 1.05rem; max-width: 46em"><strong style="font-weight: 700">On the roadmap:</strong> open-source avatar assets, developer documentation and a public API.</p>
+<a href="#waitlist" class="mw-btn" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; background: #0E6B56; color: #FFFFFF; text-decoration: none; font-weight: 600">Vote on what’s next</a>
+</div>
+</div>
+</section>
+
+<footer style="background: #12302A; color: #DCEFE7">
+<div style="max-width: 1200px; margin: 0 auto; padding: 56px 24px 40px; display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; align-items: flex-start">
+<div>
+<div style="display: flex; align-items: center; gap: 10px">
+<svg width="32" height="32" viewBox="0 0 36 36" aria-hidden="true"><path d="M5 31V12L10.5 3.5L16 10H20L25.5 3.5L31 12V31Q31 34 28 34H8Q5 34 5 31Z" fill="#8FD3BE"></path><circle cx="18" cy="21.5" r="7" fill="#12302A"></circle><circle cx="21" cy="19.5" r="6" fill="#8FD3BE"></circle></svg>
+<span style="font-family: Outfit, sans-serif; font-weight: 700; font-size: 1.3rem; color: #FFFFFF">Meowslim</span>
+</div>
+<p style="margin: 12px 0 0; max-width: 28em">Modest Muslim avatars for a digital world.</p>
+</div>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center">
+<a href="mailto:hello@example.com" style="color: #FFFFFF; font-weight: 600; text-decoration: none">Contact</a>
+<a href="https://x.com/" style="color: #FFFFFF; font-weight: 600; text-decoration: none">X [@yourhandle]</a>
+<span style="color: #A9C7BC">Docs and API (coming soon)</span>
+</nav>
+</div>
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px 24px 32px; border-top: 1px solid rgba(220,239,231,0.16); font-size: 0.9rem; color: #A9C7BC">© 2026 Meowslim. All rights reserved.</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.SK = ['#F7DCC8', '#EDC4A2', '#D9A57E', '#B98059', '#8C5B3C', '#5F3B27'];
+    this.BG = ['#DCEFE7', '#F7DFD6', '#DCE8F3', '#F5EBC4', '#E6E0F2', '#EDE7DC'];
+    this.CV = ['#0E6B56', '#2D4C7E', '#A9566A', '#B8935A', '#5C4C8C', '#34403D', '#F4F2EC', '#6E998A'];
+    this.TH = ['#F4F2EC', '#E2E8E5', '#CBD7E4', '#D8CCB8', '#33404D'];
+    this.HR = ['#2A1D17', '#46301F', '#5E412A', '#1F1F22', '#8E8A86'];
+    this.NAMES = ['Aisha', 'Yusuf', 'Maryam', 'Bilal', 'Khadija', 'Idris', 'Zaynab', 'Hamza', 'Ruqayya', 'Amina', 'Ibrahim', 'Safiya', 'Musa', 'Hafsa', 'Umar', 'Layla', 'Tariq', 'Sumayya', 'Dawud', 'Nusaybah', 'Salman', 'Halima'];
+    this.count = 0;
+    const start = ['Aisha', 'Yusuf', 'Maryam', 'Bilal', 'Amina', 'Idris', 'Zaynab', 'Hamza', 'Ruqayya'];
+    this.state = {
+      seed: 'Amina',
+      tiles: start.map((n) => ({ seed: n, flip: false, swapped: false })),
+      tab: 'cover', tabFlip: false,
+      b: { head: 'hijab', skin: '#D9A57E', beard: 'short', mouth: 'smile', bg: '#DCEFE7', cover: '#0E6B56' },
+      bFlip: false,
+      email: '', err: '', joined: false
+    };
+  }
+  componentDidMount() {
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (!reduce) this.timer = setInterval(() => this.swapTile(), 2600);
+  }
+  componentWillUnmount() { if (this.timer) clearInterval(this.timer); }
+  hash(str) {
+    let h = 2166136261;
+    for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return h >>> 0;
+  }
+  rng(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  isF(h) { return h === 'hijab' || h === 'niqab' || h === 'khimar' || h === 'burqa'; }
+  gen(seed) {
+    const key = String(seed == null ? '' : seed).trim().toLowerCase() || 'meowslim';
+    const r = this.rng(this.hash(key));
+    const pick = (a) => a[Math.floor(r() * a.length)];
+    const female = r() < 0.5;
+    const headwear = female ? pick(['hijab', 'hijab', 'hijab', 'niqab', 'khimar', 'khimar', 'burqa']) : pick(['kufi', 'kufi', 'turban', 'none']);
+    const cover = pick(this.CV);
+    return {
+      seed: key, headwear: headwear, skin: pick(this.SK), bg: pick(this.BG), cover: cover, cap: cover,
+      cloth: female ? pick(this.CV) : pick(this.TH), hair: pick(this.HR),
+      beard: female ? 'none' : pick(['full', 'short', 'short', 'none']),
+      mouth: pick(['smile', 'smile', 'grin', 'calm'])
+    };
+  }
+  swapTile() {
+    const slots = [0, 1, 2, 3, 5, 6, 7, 8];
+    const i = slots[Math.floor(Math.random() * slots.length)];
+    this.count += 1;
+    const n = this.NAMES[Math.floor(Math.random() * this.NAMES.length)] + ' ' + this.count;
+    const tiles = this.state.tiles.map((t, j) => (j === i ? { seed: n, flip: !t.flip, swapped: true } : t));
+    this.setState({ tiles: tiles });
+  }
+  pill(sel) {
+    return sel ? { bg: '#0E6B56', fg: '#FFFFFF', bd: '#0E6B56', pressed: 'true' } : { bg: '#FFFFFF', fg: '#12302A', bd: '#C9DAD3', pressed: 'false' };
+  }
+  setB(patch) {
+    this.setState({ b: Object.assign({}, this.state.b, patch), bFlip: !this.state.bFlip });
+  }
+  renderVals() {
+    const s = this.state;
+    const self = this;
+
+    const tiles = s.tiles.map((t, i) => {
+      const you = i === 4;
+      return {
+        av: you ? self.gen(s.seed || 'Meowslim') : self.gen(t.seed),
+        isYou: you,
+        cls: t.flip ? 'popB' : 'popA',
+        popDelay: t.swapped ? '0s' : (0.3 + i * 0.07).toFixed(2) + 's',
+        shift: i % 3 === 1 ? 'translateY(30px)' : 'none',
+        dur: (5.4 + ((i * 37) % 10) / 4).toFixed(2) + 's',
+        bobDelay: (-i * 0.8).toFixed(2) + 's',
+        ring: you ? '0 0 0 3px #0E6B56, 0 18px 40px rgba(14,107,86,.28)' : '0 1px 2px rgba(18,48,42,.06), 0 12px 30px rgba(18,48,42,.09)'
+      };
+    });
+
+    const mk = (o) => Object.assign({ seed: 'g', bg: '#DCEFE7', skin: '#D9A57E', cloth: '#2D4C7E', cover: '#0E6B56', cap: '#F4F2EC', hair: '#2A1D17', beard: 'none', mouth: 'smile', headwear: 'hijab' }, o);
+    const gal = {
+      cover: [
+        { title: 'Hijab', text: 'Wrapped styles in many fabrics and colours, framing the face.', av: mk({ seed: 'g1', bg: '#F7DFD6', cover: '#A9566A', cloth: '#5C4C8C', skin: '#EDC4A2' }) },
+        { title: 'Niqab', text: 'Face veils that keep the eyes warm and expressive.', av: mk({ seed: 'g2', headwear: 'niqab', bg: '#DCE8F3', cover: '#34403D', cloth: '#2D4C7E', skin: '#B98059' }) },
+        { title: 'Khimar', text: 'A longer drape that falls over the shoulders and chest.', av: mk({ seed: 'g3', headwear: 'khimar', bg: '#F5EBC4', cover: '#B8935A', cloth: '#34403D', skin: '#8C5B3C', mouth: 'grin' }) },
+        { title: 'Burqa', text: 'Full covering with a mesh eye panel, drawn with respect.', av: mk({ seed: 'g4', headwear: 'burqa', bg: '#E6E0F2', cover: '#2D4C7E', cloth: '#2D4C7E' }) },
+        { title: 'Kufi', text: 'Knitted and embroidered prayer caps in every shade.', av: mk({ seed: 'g5', headwear: 'kufi', bg: '#DCEFE7', cap: '#F4F2EC', cloth: '#F4F2EC', skin: '#5F3B27', beard: 'full', hair: '#1F1F22', mouth: 'grin' }) },
+        { title: 'Turban', text: 'Wrapped turbans in classic and modern tones.', av: mk({ seed: 'g6', headwear: 'turban', bg: '#EDE7DC', cap: '#0E6B56', cloth: '#E2E8E5', skin: '#D9A57E', beard: 'full', hair: '#46301F' }) }
+      ],
+      face: [
+        { title: 'Skin tones', text: 'Six base tones, from fair to deep, so everyone finds a match.', av: mk({ seed: 'f1', skin: '#5F3B27', cover: '#F4F2EC', bg: '#F5EBC4', cloth: '#0E6B56' }) },
+        { title: 'Full beards', text: 'Natural, full beards in a range of hair colours.', av: mk({ seed: 'f2', headwear: 'kufi', cap: '#2D4C7E', beard: 'full', skin: '#EDC4A2', hair: '#5E412A', bg: '#DCE8F3', cloth: '#F4F2EC' }) },
+        { title: 'Trimmed beards', text: 'Shorter, neater styles with or without a cap.', av: mk({ seed: 'f3', headwear: 'none', beard: 'short', hair: '#1F1F22', skin: '#B98059', bg: '#DCEFE7', cloth: '#CBD7E4' }) },
+        { title: 'Expressions', text: 'Smile, big smile or calm. Share the mood you want.', av: mk({ seed: 'f4', headwear: 'khimar', mouth: 'grin', cover: '#6E998A', skin: '#F7DCC8', bg: '#F7DFD6', cloth: '#34403D' }) },
+        { title: 'Every age', text: 'Grey hair and beards for elders and grandparents too.', av: mk({ seed: 'f5', headwear: 'turban', cap: '#F4F2EC', beard: 'full', hair: '#8E8A86', skin: '#D9A57E', bg: '#EDE7DC', mouth: 'calm', cloth: '#D8CCB8' }) }
+      ],
+      cloth: [
+        { title: 'Abaya', text: 'Flowing abayas in plain and rich tones.', av: mk({ seed: 'c1', cover: '#B8935A', cloth: '#34403D', bg: '#E6E0F2', skin: '#EDC4A2' }) },
+        { title: 'Thobe', text: 'Classic thobes with a simple collar and button line.', av: mk({ seed: 'c2', headwear: 'kufi', cloth: '#F4F2EC', cap: '#F4F2EC', beard: 'short', skin: '#8C5B3C', bg: '#DCE8F3' }) },
+        { title: 'Long layers', text: 'Khimar and jilbab layers that fall well past the shoulders.', av: mk({ seed: 'c3', headwear: 'khimar', cover: '#5C4C8C', bg: '#DCEFE7', skin: '#D9A57E' }) },
+        { title: 'Everyday tones', text: 'Earthy and dark thobes for daily and winter wear.', av: mk({ seed: 'c4', headwear: 'turban', cap: '#34403D', cloth: '#D8CCB8', beard: 'full', skin: '#B98059', bg: '#F5EBC4' }) },
+        { title: 'Your colours', text: 'Match outfits to your brand, school or team palette.', av: mk({ seed: 'c5', cover: '#0E6B56', cloth: '#B8935A', bg: '#F5EBC4', skin: '#8C5B3C', mouth: 'grin' }) }
+      ]
+    };
+    const tabDefs = [['cover', 'Head coverings'], ['face', 'Faces'], ['cloth', 'Clothing']];
+    const tabs = tabDefs.map((d) => {
+      const sel = s.tab === d[0];
+      return { label: d[1], selStr: sel ? 'true' : 'false', bg: sel ? '#12302A' : 'transparent', fg: sel ? '#FFFFFF' : '#33504A', pick: () => self.setState({ tab: d[0], tabFlip: !self.state.tabFlip }) };
+    });
+    const cards = gal[s.tab].map((c, i) => Object.assign({}, c, { cls: s.tabFlip ? 'swapB' : 'swapA', delay: (i * 0.06).toFixed(2) + 's' }));
+
+    const ribbonSeeds = ['Asma', 'Bilal', 'Fatimah', 'Harun', 'Iman', 'Jamal', 'Karima', 'Luqman', 'Nadia', 'Rashid', 'Samira', 'Usman', 'Wardah', 'Zakariya', 'Hana', 'Yahya'];
+    const ribbonOne = ribbonSeeds.map((n) => self.gen(n));
+    const ribbon = ribbonOne.concat(ribbonOne);
+
+    const b = s.b;
+    const female = self.isF(b.head);
+    const ci = self.CV.indexOf(b.cover);
+    const builderAv = {
+      seed: 'builder', headwear: b.head, skin: b.skin, bg: b.bg, cover: b.cover, cap: b.cover,
+      cloth: female ? self.CV[((ci < 0 ? 0 : ci) + 5) % self.CV.length] : '#F4F2EC',
+      hair: '#2A1D17', beard: female ? 'none' : b.beard, mouth: b.mouth
+    };
+    const headDefs = [['hijab', 'Hijab'], ['niqab', 'Niqab'], ['khimar', 'Khimar'], ['burqa', 'Burqa'], ['kufi', 'Kufi'], ['turban', 'Turban'], ['none', 'Short hair']];
+    const heads = headDefs.map((d) => Object.assign({ label: d[1], pick: () => self.setB({ head: d[0] }) }, self.pill(b.head === d[0])));
+    const swatch = (list, cur, key, word) => list.map((c, i) => {
+      const sel = c === cur;
+      const o = { c: c, label: word + ' ' + (i + 1), pressed: sel ? 'true' : 'false', ring: sel ? '#12302A' : '#E1EBE6' };
+      o.pick = () => { const p = {}; p[key] = c; self.setB(p); };
+      return o;
+    });
+    const skins = swatch(self.SK, b.skin, 'skin', 'Skin tone');
+    const bgs = swatch(self.BG, b.bg, 'bg', 'Background');
+    const covers = swatch(self.CV, b.cover, 'cover', female ? 'Covering colour' : 'Cap colour');
+    const mouthDefs = [['smile', 'Smile'], ['grin', 'Big smile'], ['calm', 'Calm']];
+    const mouths = mouthDefs.map((d) => Object.assign({ label: d[1], pick: () => self.setB({ mouth: d[0] }) }, self.pill(b.mouth === d[0])));
+    const beardDefs = [['none', 'None'], ['short', 'Trimmed'], ['full', 'Full']];
+    const beards = beardDefs.map((d) => Object.assign({ label: d[1], disabled: female, op: female ? '0.45' : '1', pick: () => self.setB({ beard: d[0] }) }, self.pill(!female && b.beard === d[0])));
+    const names = { hijab: 'hijab', niqab: 'niqab', khimar: 'khimar', burqa: 'burqa', kufi: 'kufi', turban: 'turban', none: 'short hair' };
+    const builderText = names[b.head] + ', ' + (female ? '' : (b.beard === 'none' ? 'no beard, ' : (b.beard === 'short' ? 'trimmed beard, ' : 'full beard, '))) + (b.mouth === 'grin' ? 'big smile' : b.mouth) + '.';
+    const seedSlug = encodeURIComponent((s.seed || 'meowslim').trim().toLowerCase().replace(/\s+/g, '-')) || 'meowslim';
+
+    const hasErr = !!s.err;
+    return {
+      tiles: tiles,
+      seed: s.seed,
+      onSeed: (e) => {
+        const v = e.target.value;
+        const t = self.state.tiles.map((x, j) => (j === 4 ? { seed: x.seed, flip: !x.flip, swapped: true } : x));
+        self.setState({ seed: v, tiles: t });
+      },
+      shuffle: () => {
+        const n = self.NAMES[Math.floor(Math.random() * self.NAMES.length)];
+        const t = self.state.tiles.map((x, j) => (j === 4 ? { seed: x.seed, flip: !x.flip, swapped: true } : x));
+        self.setState({ seed: n, tiles: t });
+      },
+      tabs: tabs, cards: cards,
+      tabLabel: tabDefs.filter((d) => d[0] === s.tab)[0][1],
+      ribbon: ribbon,
+      heads: heads, skins: skins, bgs: bgs, covers: covers, mouths: mouths, beards: beards,
+      beardNote: female ? 'Beards apply to kufi, turban and short-hair styles.' : 'Pick a length, or none at all.',
+      coverLabel: female ? 'Covering colour' : 'Cap and turban colour',
+      builderAv: builderAv,
+      builderCls: s.bFlip ? 'popB' : 'popA',
+      builderText: builderText,
+      apiPath: '/v1/avatar.svg?seed=' + seedSlug + '&style=' + b.head,
+      randomise: () => {
+        const g = self.gen('r' + Math.random());
+        self.setB({ head: g.headwear, skin: g.skin, beard: self.isF(g.headwear) ? self.state.b.beard : g.beard, mouth: g.mouth, bg: g.bg, cover: g.cover });
+      },
+      email: s.email, err: s.err, hasErr: hasErr, errStr: hasErr ? 'true' : 'false',
+      emailBorder: hasErr ? '#A32E3B' : '#B9CEC6',
+      joined: s.joined, notJoined: !s.joined,
+      joinAv: self.gen(s.email || 'meowslim'),
+      onEmail: (e) => self.setState({ email: e.target.value, err: '' }),
+      onKey: (e) => { if (e.key === 'Enter') self.doJoin(); },
+      join: () => self.doJoin()
+    };
+  }
+  doJoin() {
+    const v = String(this.state.email || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      this.setState({ err: 'Enter an email address like name@example.com.' });
+      return;
+    }
+    this.setState({ err: 'Signups are not connected yet. Follow the Meowslim GitHub project for updates.' });
+  }
+}
+</script>
+</body>
+</html>
