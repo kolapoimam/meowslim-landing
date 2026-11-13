@@ -1,28 +1,22 @@
-# Meowslim — landing page
+# Meowslim Landing Page
 
-A responsive, accessible Meowslim introduction site, redesigned from the supplied *Meowslim landing page* visual mockup.
+This repository serves the supplied **Meowslim landing page** design artboard faithfully, rather than a visual reinterpretation.
 
-## Design direction
+## Files
 
-- Deep emerald (`#0E6B56`), soft mint (`#DCEFE7`), off-white (`#F4F8F6`)
-- Outfit headings, Figtree body copy, pill-shaped CTAs, rounded cards
-- Interactive, deterministic nine-avatar sample preview based on the entered seed
-- Sections for the project, covering styles, audiences, steps, development updates and values
+- `index.html` — original `Main.dc.html` artboard with its complete content, layout, animation definitions, and interactions; only viewport/SEO metadata and a safe waitlist notice are added.
+- `Avatar.dc.html` — original avatar illustration component.
+- `support.js` and `vendor/` — local reference-design runtime required by the exported components.
+- `vercel.json` — Vercel configuration. `cleanUrls` is disabled so the runtime can fetch `Avatar.dc.html` by filename.
 
-The avatar illustrations on this landing page are **original lightweight vector previews**. They are not the final PNG assets or the full production avatar generator. The full application is developed separately at [meowslim-avatars](https://github.com/kolapoimam/meowslim-avatars).
+## Preview / deploy
 
-## Deploy on Vercel
+This is a static site. For local viewing run `python3 -m http.server 3000`, then open `http://localhost:3000/`. Import `kolapoimam/meowslim-landing` in Vercel with **Other** as the framework and no build command or output directory configuration.
 
-Import `kolapoimam/meowslim-landing` in Vercel. Select **Other** (static site), no build command, and the repository root as the output directory. No environment variables or dependencies required.
+## Important: waitlist
 
-## Preview locally
+The supplied mockup includes a visual email waitlist, but no collection/storage service. To avoid false signup confirmations, submitting an email currently displays an honest message stating that signups are not connected. Attach a backend/service before accepting real subscriptions.
 
-```bash
-python3 -m http.server 3000
-```
+## Other project
 
-Visit http://localhost:3000.
-
-## Project scope
-
-This repository contains only the landing page (`index.html`, `styles.css`, `script.js` and static brand files). The page links to GitHub for progress instead of claiming to have an operational email waitlist.
+The complete Meowslim avatar product lives separately in [`kolapoimam/meowslim-avatars`](https://github.com/kolapoimam/meowslim-avatars).
