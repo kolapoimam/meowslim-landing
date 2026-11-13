@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Meowslim avatar</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 100%; aspect-ratio: 1 / 1; line-height: 0">
+<svg viewBox="0 0 200 200" width="100%" height="100%" role="img" aria-label="{{label}}" style="display: block">
+<rect width="200" height="200" fill="{{bg}}"></rect>
+<path d="M28 200 C30 158 58 140 100 140 C142 140 170 158 172 200 Z" fill="{{cloth}}"></path>
+<g display="{{dCollar}}"><path d="M86 141 L100 160 L114 141" fill="none" stroke="{{clothDark}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M100 162 V196" fill="none" stroke="{{clothDark}}" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.1 9"></path></g>
+<rect x="87" y="118" width="26" height="30" rx="10" fill="{{skinDark}}"></rect>
+<g display="{{dKhimar}}"><path d="M100 30 C58 30 44 62 44 96 C44 128 32 160 24 200 L176 200 C168 160 156 128 156 96 C156 62 142 30 100 30 Z" fill="{{cover}}"></path><path d="M70 150 C66 170 62 186 60 200 M130 150 C134 170 138 186 140 200" fill="none" stroke="{{coverDark}}" stroke-width="2.5" stroke-linecap="round"></path></g>
+<g display="{{dHijab}}"><path d="M100 32 C62 32 48 62 48 96 C48 124 58 140 44 164 C72 150 128 150 156 164 C142 140 152 124 152 96 C152 62 138 32 100 32 Z" fill="{{cover}}"></path><path d="M64 144 C80 154 120 154 136 144" fill="none" stroke="{{coverDark}}" stroke-width="2.5" stroke-linecap="round"></path></g>
+<g display="{{dEars}}"><ellipse cx="65" cy="100" rx="7" ry="9" fill="{{skinDark}}"></ellipse><ellipse cx="135" cy="100" rx="7" ry="9" fill="{{skinDark}}"></ellipse></g>
+<ellipse cx="100" cy="98" rx="34" ry="40" fill="{{skin}}"></ellipse>
+<g display="{{dHair}}"><path d="M66 96 C62 64 80 54 100 54 C120 54 138 64 134 96 C130 80 118 72 100 72 C82 72 70 80 66 96 Z" fill="{{hair}}"></path></g>
+<g display="{{dBeardFull}}"><path d="M66 98 C66 132 80 152 100 154 C120 152 134 132 134 98 C128 114 118 120 100 120 C82 120 72 114 66 98 Z" fill="{{hair}}"></path><path d="M89 112 Q100 107 111 112" fill="none" stroke="{{hair}}" stroke-width="4" stroke-linecap="round"></path></g>
+<g display="{{dBeardShort}}"><path d="M68 106 C70 128 84 140 100 141 C116 140 130 128 132 106 C124 118 114 123 100 123 C86 123 76 118 68 106 Z" fill="{{hair}}"></path></g>
+<circle cx="79" cy="110" r="6" fill="#E88B7A" opacity="0.28"></circle>
+<circle cx="121" cy="110" r="6" fill="#E88B7A" opacity="0.28"></circle>
+<g class="mw-eyes" style="animation-delay: {{blink}}"><ellipse cx="87" cy="96" rx="3.6" ry="4.2" fill="#1D2B28"></ellipse><ellipse cx="113" cy="96" rx="3.6" ry="4.2" fill="#1D2B28"></ellipse></g>
+<path d="M80 86 Q87 82 94 85 M106 85 Q113 82 120 86" fill="none" stroke="{{brow}}" stroke-width="2.6" stroke-linecap="round"></path>
+<path display="{{dSmile}}" d="M90 114 Q100 122 110 114" fill="none" stroke="#7A3B2E" stroke-width="2.8" stroke-linecap="round"></path>
+<path display="{{dGrin}}" d="M88 112 Q100 128 112 112 Z" fill="#7A3B2E"></path>
+<path display="{{dCalm}}" d="M93 116 Q100 118 107 116" fill="none" stroke="#7A3B2E" stroke-width="2.8" stroke-linecap="round"></path>
+<g display="{{dNiqab}}"><path d="M64 102 Q100 98 136 102 L136 112 C134 140 120 152 100 154 C80 152 66 140 64 112 Z" fill="{{cover}}"></path></g>
+<g display="{{dBurqa}}"><ellipse cx="100" cy="98" rx="36" ry="42" fill="{{cover}}"></ellipse><rect x="76" y="86" width="48" height="18" rx="6" fill="{{coverDark}}"></rect><path d="M82 88 V102 M88 88 V102 M94 88 V102 M100 88 V102 M106 88 V102 M112 88 V102 M118 88 V102" fill="none" stroke="{{cover}}" stroke-width="1.6"></path></g>
+<ellipse display="{{dRim}}" cx="100" cy="97" rx="36" ry="43" fill="none" stroke="{{cover}}" stroke-width="7"></ellipse>
+<g display="{{dKufi}}"><path d="M68 76 C68 54 84 46 100 46 C116 46 132 54 132 76 Z" fill="{{cap}}"></path><path d="M68 76 H132" fill="none" stroke="{{capDark}}" stroke-width="3" stroke-linecap="round"></path><path d="M80 66 H120 M84 57 H116" fill="none" stroke="{{capDark}}" stroke-width="1.8" stroke-dasharray="2 4" stroke-linecap="round"></path></g>
+<g display="{{dTurban}}"><path d="M62 82 C54 52 76 34 100 34 C124 34 146 52 138 82 C124 72 76 72 62 82 Z" fill="{{cap}}"></path><path d="M66 70 C84 56 118 52 136 66 M64 58 C82 42 116 40 132 50" fill="none" stroke="{{capDark}}" stroke-width="2.5" stroke-linecap="round"></path></g>
+</svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"av":{"editor":null,"default":null},"$preview":{"width":240,"height":240}}'>
+class Component extends DCLogic {
+  shade(hex, amt) {
+    const n = parseInt(String(hex).replace('#', ''), 16);
+    const ch = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => Math.max(0, Math.min(255, Math.round(amt < 0 ? v * (1 + amt) : v + (255 - v) * amt))));
+    return '#' + ch.map((v) => v.toString(16).padStart(2, '0')).join('');
+  }
+  lum(hex) {
+    const n = parseInt(String(hex).replace('#', ''), 16);
+    return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+  }
+  renderVals() {
+    const d = { headwear: 'hijab', skin: '#D9A57E', bg: '#DCEFE7', cover: '#0E6B56', cap: '#0E6B56', cloth: '#2D4C7E', hair: '#2A1D17', beard: 'none', mouth: 'smile', seed: 'meowslim' };
+    const a = Object.assign({}, d, this.props.av || {});
+    const h = a.headwear;
+    const female = ['hijab', 'niqab', 'khimar', 'burqa'].indexOf(h) > -1;
+    const show = (c) => (c ? 'inline' : 'none');
+    const dk = (c) => (this.lum(c) < 0.32 ? this.shade(c, 0.28) : this.shade(c, -0.18));
+    let s = 0;
+    const key = String(a.seed || '');
+    for (let i = 0; i < key.length; i++) s = (s * 31 + key.charCodeAt(i)) >>> 0;
+    const labels = { hijab: 'a hijab', niqab: 'a niqab', khimar: 'a khimar', burqa: 'a burqa', kufi: 'a kufi', turban: 'a turban' };
+    return {
+      bg: a.bg, skin: a.skin, skinDark: this.shade(a.skin, -0.12),
+      cloth: a.cloth, clothDark: dk(a.cloth), cover: a.cover, coverDark: dk(a.cover),
+      cap: a.cap, capDark: dk(a.cap), hair: a.hair, brow: female ? '#3A2A22' : a.hair,
+      dCollar: show(!female), dKhimar: show(h === 'khimar' || h === 'burqa'), dHijab: show(h === 'hijab' || h === 'niqab'),
+      dEars: show(!female), dHair: show(!female && h !== 'turban'),
+      dBeardFull: show(!female && a.beard === 'full'), dBeardShort: show(!female && a.beard === 'short'),
+      dSmile: show(a.mouth === 'smile'), dGrin: show(a.mouth === 'grin'), dCalm: show(a.mouth === 'calm'),
+      dNiqab: show(h === 'niqab'), dBurqa: show(h === 'burqa'), dRim: show(h === 'hijab' || h === 'niqab' || h === 'khimar'),
+      dKufi: show(h === 'kufi'), dTurban: show(h === 'turban'),
+      blink: ((s % 9) * 0.55).toFixed(2) + 's',
+      label: labels[h] ? 'Avatar wearing ' + labels[h] : 'Avatar with short hair'
+    };
+  }
+}
+</script>
+</body>
+</html>
